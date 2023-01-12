@@ -1,0 +1,107 @@
+{
+  "User": [
+    {
+      "userId": 1,
+      "name": "nesti",
+      "lastName": "",
+      "lapel": "E123456",
+      "sex": "Masculino",
+      "ci": "12345678910",
+      "type": "Estudiante",
+
+      "username": "nesti",
+      "password": "passtest"
+    }, {
+      "userId": 2,
+      "name": "amarillo",
+      "lastName": "",
+      "lapel": "E123456",
+      "sex": "Femenino",
+      "ci": "12345678911",
+      "type": "Estudiante",
+
+      "username": "amarillo",
+      "password": "passtest"
+    }
+  ],
+
+  "MedalsTable": [
+    {
+      "id": 1,
+      "place": "Futsal",
+      "team": "Equipo",
+      "gold": 1,
+      "plate": "2",
+      "bronze": "3",
+      "total": "6"
+    },
+    {
+      "id": 2,
+      "place": "Futsal",
+      "team": "Equipo",
+      "gold": 2,
+      "plate": "3",
+      "bronze": "4",
+      "total": "5"
+    }
+  ],
+
+  "Sport": [
+    {
+      "id": 1,
+      "modality": "Equipo",
+      "name": "Futsal",
+      "sex": "Masculino",
+      "faculty": "Facultad 1"
+    },
+    {
+      "id": 2,
+      "modality": "Equipo",
+      "name": "Futsal",
+      "sex": "Femenino",
+      "faculty": "Facultad 1"
+    }
+  ],
+  "Event": [
+    {
+      "eventId": 1,
+      "evenName": "Jornada 1",
+      "date": "Sun Jan 01 2023",
+      "sport": "Futsal",
+      "modality": "Equipo"
+    },
+    {
+      "eventId": 2,
+      "evenName": "Jornada 2",
+      "date": "Sun Jan 02 2023",
+      "sport": "Futsal",
+      "modality": "Equipo"
+    }
+  ],
+  "Calendar": [
+    {
+      "idCalendar": 1,
+      "date": "Sun Jan 01 2023",
+      "site": "Canchas"
+    },
+    {
+      "idCalendar": 2,
+      "date": "Sun Jan 02 2023",
+      "site": "Canchas"
+    }
+  ],
+  "Report": [
+    {
+      "idReport": 1,
+      "event": "Jornada 1",
+      "info": "Información",
+      "result": "Resultado"
+    },
+    {
+      "idReport": 2,
+      "event": "Jornada 2",
+      "info": "Información",
+      "result": "Resultado"
+    }
+  ]
+}
