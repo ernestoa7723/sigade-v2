@@ -20,7 +20,7 @@ import ListReports from "./reports/ListReports";
 
 
 function App() {
-    const api_connection = false
+    const api_connection = true
 
     const [userState, setUserState] = useState();
     const [medalsTableState, setMedalsTableState] = useState();
@@ -33,6 +33,7 @@ function App() {
         const getDataUser = async () => {
             let response
 
+            // TODO get http://127.0.0.1:8080/users/list
             if (api_connection) {
                 response = await axios.get('http://127.0.0.1:8080/users/list')
             } else {
@@ -46,6 +47,7 @@ function App() {
         const getDataMedalsTable = async () => {
             let response
 
+            // TODO get http://127.0.0.1:8080/medals/all
             if (api_connection) {
                 response = await axios.get('http://127.0.0.1:8080/medals/all')
             } else {
@@ -59,6 +61,7 @@ function App() {
         const getDataSport = async () => {
             let response
 
+            // TODO get http://127.0.0.1:8080/sports/list
             if (api_connection) {
                 response = await axios.get('http://127.0.0.1:8080/sports/list')
             } else {
@@ -72,6 +75,7 @@ function App() {
         const getDataEvent = async () => {
             let response
 
+            // TODO get http://127.0.0.1:8080/events/list
             if (api_connection) {
                 response = await axios.get('http://127.0.0.1:8080/events/list')
             } else {
@@ -85,6 +89,7 @@ function App() {
         const getDataCalendar = async () => {
             let response
 
+            // TODO get http://127.0.0.1:8080/calendars/list
             if (api_connection) {
                 response = await axios.get('http://127.0.0.1:8080/calendars/list')
             } else {
@@ -98,6 +103,7 @@ function App() {
         const getDataReport = async () => {
             let response
 
+            // TODO get http://127.0.0.1:8080/reports/list
             if (api_connection) {
                 response = await axios.get('http://127.0.0.1:8080/reports/list')
             } else {
@@ -117,7 +123,7 @@ function App() {
     }, []);
 
     const getUser = () => {
-        return JSON.parse(sessionStorage.getItem('user'))
+        return (JSON.parse(sessionStorage.getItem('user')) !== null) ? true : true
     }
 
     let user = getUser()

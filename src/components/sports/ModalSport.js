@@ -35,13 +35,12 @@ class ModalSport extends Component {
         }
 
         if (this.state.wasInit) {
-            new_obj['id'] = this.props.obj.id
+            new_obj['sportId'] = this.state.sportId
 
-            // TODO axios patch http://127.0.0.1:8080/sports/ obj.id
+            // TODO axios patch http://127.0.0.1:8080/sports/id obj.sportId
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/sports/id".concat(this.props.obj.sportId)
                 async function updateObj() {
-                    let url = "http://127.0.0.1:8080/sports/".concat(this.props.obj.id.toString())
-
                     const response = axios.put(url, new_obj)
                     console.log(response)
                 }
@@ -55,9 +54,8 @@ class ModalSport extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/sports/
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/sports/"
                 async function createObj() {
-                    let url = "http://127.0.0.1:8080/sports/"
-
                     const response = axios.post(url, new_obj)
                     console.log(response)
                 }
@@ -135,7 +133,7 @@ class ModalSport extends Component {
             let state = {}
             let wasInit = true
 
-            state['id'] = this.props.obj.id
+            state['sportId'] = this.props.obj.sportId
             state['name'] = this.props.obj.name
             state['modality'] = this.props.obj.modality
             state['sex'] = this.props.obj.sex

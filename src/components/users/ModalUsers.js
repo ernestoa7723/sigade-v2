@@ -60,7 +60,7 @@ class ModalUsers extends Component {
             let new_obj = {
                 name: this.state.name,
                 lastName: this.state.lastName,
-                username: this.state.username,
+                // username: this.state.username,
                 lapel: this.state.lapel,
                 sex: this.state.sex,
                 ci: this.state.ci,
@@ -68,40 +68,34 @@ class ModalUsers extends Component {
             }
 
             if (this.state.wasInit) {
-                new_obj['userId'] = this.props.obj.userId
+                new_obj['userId'] = this.state.userId
 
-                // TODO axios patch http://127.0.0.1:8080/users/ obj.id
+                // TODO axios patch http://127.0.0.1:8080/users/id obj.userId
                 if (this.props.api_connection) {
+                    let url = "http://127.0.0.1:8080/users/id".concat(this.props.obj.userId)
                     async function updateObj() {
-                        let url = "http://127.0.0.1:8080/users/".concat(this.props.obj.userId.toString())
-
                         const response = axios.put(url, new_obj)
                         console.log(response)
                     }
 
                     updateObj()
                 } else {
-
                     console.log(new_obj)
-
                 }
             } else {
-                new_obj['password'] = this.state.password
+                // new_obj['password'] = this.state.password
 
                 // TODO axios post http://127.0.0.1:8080/users
                 if (this.props.api_connection) {
+                    let url = "http://127.0.0.1:8080/users"
                     async function createObj() {
-                        let url = "http://127.0.0.1:8080/users"
-
                         const response = axios.post(url, new_obj)
                         console.log(response)
                     }
 
                     createObj()
                 } else {
-
                     console.log(new_obj)
-
                 }
             }
 
@@ -117,7 +111,7 @@ class ModalUsers extends Component {
         if (!this.state.wasInit) {
             return "Registrar usuario"
         } else {
-            return this.props.obj.username
+            return this.props.obj.name.concat(' ').concat(this.props.obj.lastName)
         }
     }
 

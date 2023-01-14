@@ -6,7 +6,7 @@ import '../assets/bootstrap-5.2.3-dist/js/bootstrap.bundle'
 
 class Header extends Component {
     buttonLog = () => {
-        if (this.props.user === null) {
+        if (!this.props.user) {
             return (
                 <button type="button" className="btn btn-outline-light col-md-9 col-lg-auto me-2 me-md-0 me-lg-2" data-bs-toggle="modal" data-bs-target="#sign-in-modal">
                     Iniciar sesión
@@ -44,10 +44,10 @@ class Header extends Component {
                                     <a className="nav-link active" aria-current="page" href="/medallas">Medallas</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="/calendarios">Calendarios</a>
+                                    <a className="nav-link active" aria-current="page" href="/deportes">Deportes</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="/deportes">Deportes</a>
+                                    <a className="nav-link active" aria-current="page" href="/calendarios">Calendarios</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link active" aria-current="page" href="/eventos">Eventos</a>

@@ -9,7 +9,7 @@ import ModalDelete from "../ModalDelete";
 
 class ListReports extends Component {
     createReportModal = () => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col-auto px-1 ms-auto my-auto">
                     <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#create-report-modal">Añadir</button>
@@ -20,7 +20,7 @@ class ListReports extends Component {
     }
 
     updateReportModal = (index, report) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target={'#update-report-modal-'.concat(index)}>
@@ -36,7 +36,7 @@ class ListReports extends Component {
     }
 
     deleteReportModal = (index, report) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={'#delete-report-modal-'.concat(index)}>
@@ -46,6 +46,27 @@ class ListReports extends Component {
                     </button>
                     <ModalDelete id={'delete-report-modal-'.concat(index)} model={'Report'} obj={report} api_connection={this.props.api_connection} />
                 </div>
+            )
+        }
+    }
+
+    adminSectionTh = () => {
+        if (this.props.user) {
+            return (
+                <th scope="col" >Acciones</th>
+            )
+        }
+    }
+
+    adminSectionTd = (index, report) => {
+        if (this.props.user) {
+            return (
+                <td>
+                    <div className="row row-cols-1 row-cols-sm-2 g-1 m-0">
+                        { this.updateReportModal(index, report) }
+                        { this.deleteReportModal(index, report) }
+                    </div>
+                </td>
             )
         }
     }
@@ -67,7 +88,7 @@ class ListReports extends Component {
                                     <th scope="col">Evento</th>
                                     <th scope="col">Info</th>
                                     <th scope="col">Resultados</th>
-                                    <th scope="col">Acciones</th>
+                                    { this.adminSectionTh() }
                                 </tr>
                             </thead>
                             <tbody className="table-group-divider">
@@ -79,12 +100,7 @@ class ListReports extends Component {
                                                 <td>{report.event}</td>
                                                 <td>{report.info}</td>
                                                 <td>{report.result}</td>
-                                                <td>
-                                                    <div className="row row-cols-1 row-cols-sm-2 g-1 m-0">
-                                                        { this.updateReportModal(index, report) }
-                                                        { this.deleteReportModal(index, report) }
-                                                    </div>
-                                                </td>
+                                                { this.adminSectionTd(index, report) }
                                             </tr>
                                         )
                                     }

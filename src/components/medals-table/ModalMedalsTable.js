@@ -42,38 +42,30 @@ class ModalMellaGame extends Component {
         if (this.state.wasInit) {
             new_obj['id'] = this.props.obj.id
 
-            // TODO axios patch http://127.0.0.1:8080/medals/ obj.id
+            // TODO axios patch http://127.0.0.1:8080/medals/id obj.id
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/medals/id".concat(this.props.obj.id)
                 async function updateObj() {
-                    let url = "http://127.0.0.1:8080/medals/".concat(this.props.obj.id.toString())
-
-                    const response = axios.put(url, new_obj)
-
+                    const response = await axios.put(url, new_obj)
                     console.log(response)
                 }
 
                 updateObj()
             } else {
-
                 console.log(new_obj)
-
             }
         } else {
             // TODO axios post http://127.0.0.1:8080/medals/
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/medals"
                 async function createObj() {
-                    let url = "http://127.0.0.1:8080/medals"
-
                     const response = axios.post(url, new_obj)
-
                     console.log(response)
                 }
 
                 createObj()
             } else {
-
                 console.log(new_obj)
-
             }
         }
 

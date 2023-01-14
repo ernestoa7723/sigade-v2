@@ -9,7 +9,7 @@ import ModalDelete from "../ModalDelete";
 
 class ListCalendars extends Component {
     createCalendarModal = () => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col-auto px-1 ms-auto my-auto">
                     <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#create-calendar-modal">Añadir</button>
@@ -20,7 +20,7 @@ class ListCalendars extends Component {
     }
 
     updateCalendarModal = (index, calendar) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target={'#update-calendar-modal-'.concat(index)}>
@@ -36,7 +36,7 @@ class ListCalendars extends Component {
     }
 
     deleteCalendarModal = (index, calendar) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={'#delete-calendar-modal-'.concat(index)}>
@@ -50,41 +50,50 @@ class ListCalendars extends Component {
         }
     }
 
-    getDateTime = (date_time) => {
+    getDate = (date) => {
         const days = {
             Mon: 'Lun', Tue: 'Mar', Wed: 'Mie', Thu: 'Jue', Fri: 'Vie', Sat: 'Sab', Sun: 'Dom'
         }
 
         const months = {
-            Jan: 'Ene', Feb: 'Feb', Mar: 'Mar', Apr: 'Abr', May: 'May', Jun: 'Jun',
-            Jul: 'Jul', Aug: 'Ago', Sep: 'Sep', Oct: 'Oct', Nov: 'Nov', Dec: 'Dic'
+            '01': 'Enero', '02': 'Febrero', '03': 'Marzo', '04': 'Abril', '05': 'Mayo', '06': 'Junio',
+            '07': 'Julio', '08': 'Agosto', '09': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'
         }
 
-        let date = date_time.split(' ', 4)
+        let view_date = date.split('T')[0].split('-')
 
-        let day_n = date[0]
-        let month = date[1]
-        let day = date[2]
-        let year = date[3]
-
-        date[1] = day
-        date[2] = month
-
-        for (let daysKey in days) {
-            if (daysKey === day_n) {
-                date[0] = days[daysKey]
-            }
-        }
+        let year = view_date[0]
+        let month = view_date[1]
+        let day = view_date[2]
 
         for (let monthsKey in months) {
             if (monthsKey === month) {
-                date[2] = months[monthsKey]
+                month = months[monthsKey]
             }
         }
 
-        let time = date_time.split(' ')[4]
+        return <span>{day} de {month} del {year}</span>
+    }
 
-        return <span>{date.join(' ')} {time}</span>
+    adminSectionTh = () => {
+        if (this.props.user) {
+            return (
+                <th scope="col" >Acciones</th>
+            )
+        }
+    }
+
+    adminSectionTd = (index, calendar) => {
+        if (this.props.user) {
+            return (
+                <td>
+                    <div className="row row-cols-1 row-cols-sm-2 g-1 m-0">
+                        { this.updateCalendarModal(index, calendar) }
+                        { this.deleteCalendarModal(index, calendar) }
+                    </div>
+                </td>
+            )
+        }
     }
 
     render() {
@@ -103,7 +112,7 @@ class ListCalendars extends Component {
                                 <tr>
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Sitio</th>
-                                    <th scope="col">Acciones</th>
+                                    { this.adminSectionTh() }
                                 </tr>
                             </thead>
                             <tbody className="table-group-divider">
@@ -112,14 +121,9 @@ class ListCalendars extends Component {
                                     (calendar, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td>{this.getDateTime(calendar.date)}</td>
+                                                <td>{this.getDate(calendar.date)}</td>
                                                 <td>{calendar.site}</td>
-                                                <td>
-                                                    <div className="row row-cols-1 row-cols-sm-2 g-1 m-0">
-                                                        { this.updateCalendarModal(index, calendar) }
-                                                        { this.deleteCalendarModal(index, calendar) }
-                                                    </div>
-                                                </td>
+                                                { this.adminSectionTd(index, calendar) }
                                             </tr>
                                         )
                                     }

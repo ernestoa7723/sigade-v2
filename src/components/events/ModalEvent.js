@@ -37,13 +37,12 @@ class ModalEvent extends Component {
         }
 
         if (this.state.wasInit) {
-            new_obj['eventId'] = this.props.obj.eventId
+            new_obj['eventId'] = this.state.eventId
 
-            // TODO axios patch http://127.0.0.1:8080/events/ obj.id
+            // TODO axios patch http://127.0.0.1:8080/events/id obj.eventId
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/events/id".concat(this.props.obj.eventId)
                 async function updateObj() {
-                    let url = "http://127.0.0.1:8080/events/".concat(this.props.obj.id.toString())
-
                     const response = axios.put(url, new_obj)
                     console.log(response)
                 }
@@ -57,9 +56,8 @@ class ModalEvent extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/events/
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/events/"
                 async function createObj() {
-                    let url = "http://127.0.0.1:8080/events/"
-
                     const response = axios.post(url, new_obj)
                     console.log(response)
                 }
@@ -92,17 +90,11 @@ class ModalEvent extends Component {
             let state = {}
             let wasInit = true
 
-            state['id'] = this.props.obj.eventId
+            state['eventId'] = this.props.obj.eventId
             state['sport'] = this.props.obj.sport
             state['modality'] = this.props.obj.modality
             state['evenName'] = this.props.obj.evenName
-
-            let date = this.props.obj.date.split(' ', 4)
-            let month = date[1]
-            let day = date[2]
-            let year = date[3]
-
-            state['date'] = new Date(year.concat('-').concat(month).concat('-').concat(day))
+            state['date'] = this.props.obj.date
 
             state['wasInit'] = wasInit
             this.setState(state)

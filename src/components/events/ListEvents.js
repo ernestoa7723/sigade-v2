@@ -8,7 +8,7 @@ import ModalDelete from "../ModalDelete";
 
 class ListEvents extends Component{
     createEventModal = () => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col-auto px-1 ms-auto my-auto">
                     <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#create-event-modal">Añadir</button>
@@ -19,7 +19,7 @@ class ListEvents extends Component{
     }
 
     adminTh = () => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <th scope="col">Acciones</th>
             )
@@ -27,7 +27,7 @@ class ListEvents extends Component{
     }
 
     adminTd = (index, event) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <td>
                     <div className="row row-cols-1 row-cols-md-2 g-1 justify-content-evenly mx-0">
@@ -54,41 +54,29 @@ class ListEvents extends Component{
         }
     }
 
-    getDateTime = (date_time) => {
+    getDate = (date) => {
         const days = {
             Mon: 'Lun', Tue: 'Mar', Wed: 'Mie', Thu: 'Jue', Fri: 'Vie', Sat: 'Sab', Sun: 'Dom'
         }
 
         const months = {
-            Jan: 'Ene', Feb: 'Feb', Mar: 'Mar', Apr: 'Abr', May: 'May', Jun: 'Jun',
-            Jul: 'Jul', Aug: 'Ago', Sep: 'Sep', Oct: 'Oct', Nov: 'Nov', Dec: 'Dic'
+            '01': 'Enero', '02': 'Febrero', '03': 'Marzo', '04': 'Abril', '05': 'Mayo', '06': 'Junio',
+            '07': 'Julio', '08': 'Agosto', '09': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'
         }
 
-        let date = date_time.split(' ', 4)
+        let view_date = date.split('T')[0].split('-')
 
-        let day_n = date[0]
-        let month = date[1]
-        let day = date[2]
-        let year = date[3]
-
-        date[1] = day
-        date[2] = month
-
-        for (let daysKey in days) {
-            if (daysKey === day_n) {
-                date[0] = days[daysKey]
-            }
-        }
+        let year = view_date[0]
+        let month = view_date[1]
+        let day = view_date[2]
 
         for (let monthsKey in months) {
             if (monthsKey === month) {
-                date[2] = months[monthsKey]
+                month = months[monthsKey]
             }
         }
 
-        let time = date_time.split(' ')[4]
-
-        return <span>{date.join(' ')} {time}</span>
+        return <span>{day} de {month} del {year}</span>
     }
 
     render() {
@@ -121,7 +109,7 @@ class ListEvents extends Component{
                                                 <td>{event.sport}</td>
                                                 <td>{event.modality}</td>
                                                 <td>{event.evenName}</td>
-                                                <td>{this.getDateTime(event.date)}</td>
+                                                <td>{this.getDate(event.date)}</td>
                                                 { this.adminTd(index, event) }
                                             </tr>
                                         )

@@ -9,7 +9,7 @@ import ModalDelete from "../ModalDelete";
 
 class ListSports extends Component {
     createSportModal = () => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col-auto px-1 ms-auto my-auto">
                     <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#create-sport-modal">Añadir</button>
@@ -20,7 +20,7 @@ class ListSports extends Component {
     }
 
     updateSportModal = (index, sport) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target={'#update-sport-modal-'.concat(index)}>
@@ -36,7 +36,7 @@ class ListSports extends Component {
     }
 
     deleteSportModal = (index, sport) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={'#delete-sport-modal-'.concat(index)}>
@@ -46,6 +46,27 @@ class ListSports extends Component {
                     </button>
                     <ModalDelete id={'delete-sport-modal-'.concat(index)} model={'Sport'} obj={sport} api_connection={this.props.api_connection} />
                 </div>
+            )
+        }
+    }
+
+    adminSectionTh = () => {
+        if (this.props.user) {
+            return (
+                <th scope="col" >Acciones</th>
+            )
+        }
+    }
+
+    adminSectionTd = (index, sport) => {
+        if (this.props.user) {
+            return (
+                <td>
+                    <div className="row row-cols-1 row-cols-md-2 g-1 m-0">
+                        { this.updateSportModal(index, sport) }
+                        { this.deleteSportModal(index, sport) }
+                    </div>
+                </td>
             )
         }
     }
@@ -68,7 +89,7 @@ class ListSports extends Component {
                                     <th scope="col">Modalidad</th>
                                     <th scope="col">Sex</th>
                                     <th scope="col">Facultad</th>
-                                    <th scope="col">Acciones</th>
+                                    { this.adminSectionTh() }
                                 </tr>
                             </thead>
                             <tbody className="table-group-divider">
@@ -81,12 +102,7 @@ class ListSports extends Component {
                                                 <td>{sport.modality}</td>
                                                 <td>{sport.sex}</td>
                                                 <td>{sport.faculty}</td>
-                                                <td>
-                                                    <div className="row row-cols-1 row-cols-md-2 g-1 m-0">
-                                                        { this.updateSportModal(index, sport) }
-                                                        { this.deleteSportModal(index, sport) }
-                                                    </div>
-                                                </td>
+                                                { this.adminSectionTd(index, sport) }
                                             </tr>
                                         )
                                     }

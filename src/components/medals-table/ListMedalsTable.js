@@ -9,7 +9,7 @@ import ModalDelete from "../ModalDelete";
 
 class ListMedalsTable extends Component {
     createMedalsTableModal = () => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col-auto ms-auto my-auto">
                     <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#create-medals-table-modal">Añadir</button>
@@ -20,7 +20,7 @@ class ListMedalsTable extends Component {
     }
 
     updateMedalsTableModal = (index, table) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target={'#update-medals-table-modal-'.concat(index)}>
@@ -36,7 +36,7 @@ class ListMedalsTable extends Component {
     }
 
     deleteMedalsTableModal = (index, table) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <div className="col text-center">
                     <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={'#delete-medals-table-modal-'.concat(index)}>
@@ -51,7 +51,7 @@ class ListMedalsTable extends Component {
     }
 
     adminSectionTh = () => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <th scope="col" >Acciones</th>
             )
@@ -59,11 +59,11 @@ class ListMedalsTable extends Component {
     }
 
     adminSectionTd = (index, table) => {
-        if (this.props.user !== null) {
+        if (this.props.user) {
             return (
                 <td className='row row-cols-1 row-cols-md-2 g-1 m-0'>
                     { this.updateMedalsTableModal(index, table) }
-                    { this.deleteMedalsTableModal(index, table) }
+                    {/*{ this.deleteMedalsTableModal(index, table) }*/}
                 </td>
             )
         }

@@ -34,13 +34,12 @@ class ModalReport extends Component {
         }
 
         if (this.state.wasInit) {
-            new_obj['idReport'] = this.props.obj.idReport
+            new_obj['idReport'] = this.state.idReport
 
-            // TODO axios patch http://127.0.0.1:8080/reports/ obj.id
+            // TODO axios patch http://127.0.0.1:8080/reports/id obj.idReport
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/reports/id".concat(this.props.obj.idReport)
                 async function updateObj() {
-                    let url = "http://127.0.0.1:8080/reports/".concat(this.props.obj.idReport.toString())
-
                     const response = axios.put(url, new_obj)
                     console.log(response)
                 }
@@ -54,9 +53,8 @@ class ModalReport extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/reports/
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/reports/"
                 async function createObj() {
-                    let url = "http://127.0.0.1:8080/reports/"
-
                     const response = axios.post(url, new_obj)
                     console.log(response)
                 }

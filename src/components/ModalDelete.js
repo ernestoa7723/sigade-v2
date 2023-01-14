@@ -3,53 +3,70 @@ import axios from "axios";
 
 
 class ModalDelete extends Component {
+    getDate = (date) => {
+        const months = {
+            '01': 'Enero', '02': 'Febrero', '03': 'Marzo', '04': 'Abril', '05': 'Mayo', '06': 'Junio',
+            '07': 'Julio', '08': 'Agosto', '09': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'
+        }
+
+        let view_date = date.split('T')[0].split('-')
+
+        let year = view_date[0]
+        let month = view_date[1]
+        let day = view_date[2]
+
+        for (let monthsKey in months) {
+            if (monthsKey === month) {
+                month = months[monthsKey]
+            }
+        }
+
+        return day.concat(' de ').concat(month).concat(' del ').concat(year)
+    }
+
     handleSubmit = (event) => {
         event.preventDefault()
 
         if (this.props.api_connection) {
+            let url = ""
+
+            // TODO del http://127.0.0.1:8080/medals/id obj.id
+            if (this.props.model === 'MedalsTable') {
+                url = "http://127.0.0.1:8080/medals/id".concat(this.props.obj.id)
+            }
+
+            // TODO del http://127.0.0.1:8080/users/id obj.userId ?id= obj.userId
+            if (this.props.model === 'User') {
+                url = "http://127.0.0.1:8080/users/id".concat(this.props.obj.userId).concat('?id=').concat(this.props.obj.userId)
+            }
+
+            // TODO del http://127.0.0.1:8080/sports/id obj.sportId ?id= obj.sportId
+            if (this.props.model === 'Sport') {
+                url = "http://127.0.0.1:8080/sports/id".concat(this.props.obj.sportId).concat('?id=').concat(this.props.obj.sportId)
+            }
+
+            // TODO del http://127.0.0.1:8080/events/id obj.eventId ?id= obj.eventId
+            if (this.props.model === 'Event') {
+                url = "http://127.0.0.1:8080/events/id".concat(this.props.obj.eventId).concat('?id=').concat(this.props.obj.eventId)
+            }
+
+            // TODO del http://127.0.0.1:8080/calendars/id obj.idCalendar ?id= obj.idCalendar
+            if (this.props.model === 'Calendar') {
+                url = "http://127.0.0.1:8080/calendars/id".concat(this.props.obj.idCalendar).concat('?id=').concat(this.props.obj.idCalendar)
+            }
+
+            // TODO del http://127.0.0.1:8080/reports/id obj.idReport ?id= obj.idReport
+            if (this.props.model === 'Report') {
+                url = "http://127.0.0.1:8080/reports/id".concat(this.props.obj.idReport).concat('?id=').concat(this.props.obj.idReport)
+            }
             async function deleteObj() {
-                let url = ""
-
-                // TODO del http://127.0.0.1:8080/medals/ obj.id
-                if (this.props.model === 'MedalsTable') {
-                    url = "http://127.0.0.1:8080/medals/".concat(this.props.obj.id.toString())
-                }
-
-                // TODO del http://127.0.0.1:8080/users/ obj.id
-                if (this.props.model === 'User') {
-                    url = "http://127.0.0.1:8080/users/".concat(this.props.obj.userId.toString())
-                }
-
-                // TODO del http://127.0.0.1:8080/users/ obj.id
-                if (this.props.model === 'Sport') {
-                    url = "http://127.0.0.1:8080/sports/".concat(this.props.obj.id.toString())
-                }
-
-                // TODO del http://127.0.0.1:8080/users/ obj.id
-                if (this.props.model === 'Event') {
-                    url = "http://127.0.0.1:8080/events/".concat(this.props.obj.eventId.toString())
-                }
-
-                // TODO del http://127.0.0.1:8080/users/ obj.id
-                if (this.props.model === 'Calendar') {
-                    url = "http://127.0.0.1:8080/calendars/".concat(this.props.obj.idCalendar.toString())
-                }
-
-                // TODO del http://127.0.0.1:8080/users/ obj.id
-                if (this.props.model === 'Report') {
-                    url = "http://127.0.0.1:8080/reports/".concat(this.props.obj.idReport.toString())
-                }
-
                 const response = axios.delete(url)
-
                 console.log(response)
             }
 
             deleteObj()
         } else {
-
             console.log(this.props.obj)
-
         }
 
         let modal = document.getElementById(this.props.id)
@@ -73,7 +90,7 @@ class ModalDelete extends Component {
             return "Eliminar evento".concat(' ').concat(this.props.obj.sport).concat(' ').concat(this.props.obj.modality).concat(' ').concat(this.props.obj.evenName)
         }
         if (this.props.model === 'Calendar') {
-            return "Eliminar calendario".concat(' ').concat(this.props.obj.date)
+            return "Eliminar calendario".concat(' ').concat(this.getDate(this.props.obj.date))
         }
         if (this.props.model === 'Report') {
             return "Eliminar reporte".concat(' ').concat(this.props.obj.event)
@@ -91,13 +108,13 @@ class ModalDelete extends Component {
             return "'".concat(this.props.obj.name).concat(' ').concat(this.props.obj.modality).concat(' ').concat(this.props.obj.sex).concat("'")
         }
         if (this.props.model === 'Event') {
-            return "'".concat(this.props.obj.sport).concat(' ').concat(this.props.obj.modality).concat(' ').concat(this.props.obj.evenName)
+            return "'".concat(this.props.obj.sport).concat(' ').concat(this.props.obj.modality).concat(' ').concat(this.props.obj.evenName).concat("'")
         }
         if (this.props.model === 'Calendar') {
-            return "'".concat(this.props.obj.date)
+            return "'".concat(this.getDate(this.props.obj.date)).concat("'")
         }
         if (this.props.model === 'Report') {
-            return "'".concat(this.props.obj.event)
+            return "'".concat(this.props.obj.event).concat("'")
         }
     }
 

@@ -32,13 +32,12 @@ class ModalCalendar extends Component {
         }
 
         if (this.state.wasInit) {
-            new_obj['idCalendar'] = this.props.obj.idCalendar
+            new_obj['idCalendar'] = this.state.idCalendar
 
-            // TODO axios patch http://127.0.0.1:8080/calendars/ obj.id
+            // TODO axios patch http://127.0.0.1:8080/calendars/id obj.idCalendar
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/calendars/id".concat(this.props.obj.idCalendar)
                 async function updateObj() {
-                    let url = "http://127.0.0.1:8080/calendars/".concat(this.props.obj.id.toString())
-
                     const response = axios.put(url, new_obj)
                     console.log(response)
                 }
@@ -52,18 +51,15 @@ class ModalCalendar extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/calendars/
             if (this.props.api_connection) {
+                let url = "http://127.0.0.1:8080/calendars/"
                 async function createObj() {
-                    let url = "http://127.0.0.1:8080/calendars/"
-
                     const response = axios.post(url, new_obj)
                     console.log(response)
                 }
 
                 createObj()
             } else {
-
                 console.log(new_obj)
-
             }
         }
 
@@ -78,7 +74,24 @@ class ModalCalendar extends Component {
         if (!this.state.wasInit) {
             return "Añadir Calendario"
         } else {
-            return this.props.obj.date
+            const months = {
+                '01': 'Enero', '02': 'Febrero', '03': 'Marzo', '04': 'Abril', '05': 'Mayo', '06': 'Junio',
+                '07': 'Julio', '08': 'Agosto', '09': 'Septiembre', '10': 'Octubre', '11': 'Noviembre', '12': 'Diciembre'
+            }
+
+            let view_date = this.props.obj.date.split('T')[0].split('-')
+
+            let year = view_date[0]
+            let month = view_date[1]
+            let day = view_date[2]
+
+            for (let monthsKey in months) {
+                if (monthsKey === month) {
+                    month = months[monthsKey]
+                }
+            }
+
+            return <span>{day} de {month} del {year}</span>
         }
     }
 
@@ -89,13 +102,7 @@ class ModalCalendar extends Component {
 
             state['idCalendar'] = this.props.obj.idCalendar
             state['site'] = this.props.obj.site
-
-            let date = this.props.obj.date.split(' ', 4)
-            let month = date[1]
-            let day = date[2]
-            let year = date[3]
-
-            state['date'] = new Date(year.concat('-').concat(month).concat('-').concat(day))
+            state['date'] = this.props.obj.date
 
             state['wasInit'] = wasInit
             this.setState(state)
