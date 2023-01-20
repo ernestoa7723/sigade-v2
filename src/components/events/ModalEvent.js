@@ -41,7 +41,7 @@ class ModalEvent extends Component {
 
             // TODO axios patch http://127.0.0.1:8080/events/id obj.eventId
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/events/id".concat(this.props.obj.eventId)
+                let url = "http://127.0.0.1:8088/events/id".concat(this.props.obj.eventId)
                 async function updateObj() {
                     const response = axios.put(url, new_obj)
                     console.log(response)
@@ -56,7 +56,7 @@ class ModalEvent extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/events/
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/events/"
+                let url = "http://127.0.0.1:8088/events/"
                 async function createObj() {
                     const response = axios.post(url, new_obj)
                     console.log(response)

@@ -62,6 +62,11 @@ class Header extends Component {
                             <div className="text-center">
                                 { this.buttonLog() }
                             </div>
+                            <div>
+                                <button type="button" className="btn btn-outline-light col-md-9 col-lg-auto me-2 me-md-0 me-lg-2" data-bs-toggle="modal" data-bs-target="#sign-up-modal">
+                                    Registrarse
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </nav>

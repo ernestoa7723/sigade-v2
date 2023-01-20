@@ -7,6 +7,7 @@ import '../App.css';
 
 import Header from "./Header";
 import ModalSignIn from "./ModalSignIn";
+import ModalSignUp from "./ModalSignUp";
 import Main from "./Main";
 
 import ListMedalsTable from "./medals-table/ListMedalsTable";
@@ -35,7 +36,7 @@ function App() {
 
             // TODO get http://127.0.0.1:8080/users/list
             if (api_connection) {
-                response = await axios.get('http://127.0.0.1:8080/users/list')
+                response = await axios.get('http://127.0.0.1:8088/users/list')
             } else {
                 response = await axios.get('http://127.0.0.1:3000/data.json')
             }
@@ -49,7 +50,7 @@ function App() {
 
             // TODO get http://127.0.0.1:8080/medals/all
             if (api_connection) {
-                response = await axios.get('http://127.0.0.1:8080/medals/all')
+                response = await axios.get('http://127.0.0.1:8088/medals/all')
             } else {
                 response = await axios.get('http://127.0.0.1:3000/data.json')
             }
@@ -63,7 +64,7 @@ function App() {
 
             // TODO get http://127.0.0.1:8080/sports/list
             if (api_connection) {
-                response = await axios.get('http://127.0.0.1:8080/sports/list')
+                response = await axios.get('http://127.0.0.1:8088/sports/list')
             } else {
                 response = await axios.get('http://127.0.0.1:3000/data.json')
             }
@@ -77,7 +78,7 @@ function App() {
 
             // TODO get http://127.0.0.1:8080/events/list
             if (api_connection) {
-                response = await axios.get('http://127.0.0.1:8080/events/list')
+                response = await axios.get('http://127.0.0.1:8088/events/list')
             } else {
                 response = await axios.get('http://127.0.0.1:3000/data.json')
             }
@@ -91,7 +92,7 @@ function App() {
 
             // TODO get http://127.0.0.1:8080/calendars/list
             if (api_connection) {
-                response = await axios.get('http://127.0.0.1:8080/calendars/list')
+                response = await axios.get('http://127.0.0.1:8088/calendars/list')
             } else {
                 response = await axios.get('http://127.0.0.1:3000/data.json')
             }
@@ -105,7 +106,7 @@ function App() {
 
             // TODO get http://127.0.0.1:8080/reports/list
             if (api_connection) {
-                response = await axios.get('http://127.0.0.1:8080/reports/list')
+                response = await axios.get('http://127.0.0.1:8088/reports/list')
             } else {
                 response = await axios.get('http://127.0.0.1:3000/data.json')
             }
@@ -123,7 +124,7 @@ function App() {
     }, []);
 
     const getUser = () => {
-        return (JSON.parse(sessionStorage.getItem('user')) !== null) ? true : true
+        return (JSON.parse(sessionStorage.getItem('user')) !== null) ? true : false
     }
 
     let user = getUser()
@@ -133,6 +134,7 @@ function App() {
             <BrowserRouter>
                 <Header user={user}/>
                 <ModalSignIn api_connection={api_connection} User={userState}/>
+                <ModalSignUp api_connection={api_connection} User={userState}/>
                 <Routes>
                     <Route exact path={'/'} element={<Main user={user}/>}></Route>
                     <Route exact path={'/medallas'} element={<ListMedalsTable api_connection={api_connection} user={user} MedalsTable={medalsTableState}/>}></Route>

@@ -125,6 +125,7 @@ class ListCalendars extends Component {
                                                 <td>{calendar.site}</td>
                                                 { this.adminSectionTd(index, calendar) }
                                             </tr>
+                                            
                                         )
                                     }
                                 )

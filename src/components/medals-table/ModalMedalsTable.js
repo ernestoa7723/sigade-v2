@@ -44,10 +44,11 @@ class ModalMellaGame extends Component {
 
             // TODO axios patch http://127.0.0.1:8080/medals/id obj.id
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/medals/id".concat(this.props.obj.id)
+                let url = "http://127.0.0.1:8088/medals/id".concat(this.props.obj.id)
                 async function updateObj() {
                     const response = await axios.put(url, new_obj)
                     console.log(response)
+
                 }
 
                 updateObj()
@@ -57,7 +58,7 @@ class ModalMellaGame extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/medals/
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/medals"
+                let url = "http://127.0.0.1:8088/medals"
                 async function createObj() {
                     const response = axios.post(url, new_obj)
                     console.log(response)
@@ -84,7 +85,7 @@ class ModalMellaGame extends Component {
         }
     }
 
-    render() {
+    componentDidMount(){
         if (this.props.obj !== null && !(this.state.wasInit)) {
             let state = {}
             let wasInit = true
@@ -99,6 +100,10 @@ class ModalMellaGame extends Component {
             state['wasInit'] = wasInit
             this.setState(state)
         }
+    }
+
+    render() {
+        
 
         return (
             <div className="modal fade" id={this.props.id} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={this.props.id.concat('-label')} aria-hidden="true">

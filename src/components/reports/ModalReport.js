@@ -38,7 +38,7 @@ class ModalReport extends Component {
 
             // TODO axios patch http://127.0.0.1:8080/reports/id obj.idReport
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/reports/id".concat(this.props.obj.idReport)
+                let url = "http://127.0.0.1:8088/reports/id".concat(this.props.obj.idReport)
                 async function updateObj() {
                     const response = axios.put(url, new_obj)
                     console.log(response)
@@ -53,7 +53,7 @@ class ModalReport extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/reports/
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/reports/"
+                let url = "http://127.0.0.1:8088/reports/"
                 async function createObj() {
                     const response = axios.post(url, new_obj)
                     console.log(response)

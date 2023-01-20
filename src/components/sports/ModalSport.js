@@ -39,7 +39,7 @@ class ModalSport extends Component {
 
             // TODO axios patch http://127.0.0.1:8080/sports/id obj.sportId
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/sports/id".concat(this.props.obj.sportId)
+                let url = "http://127.0.0.1:8088/sports/id".concat(this.props.obj.sportId)
                 async function updateObj() {
                     const response = axios.put(url, new_obj)
                     console.log(response)
@@ -54,7 +54,7 @@ class ModalSport extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/sports/
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/sports/"
+                let url = "http://127.0.0.1:8088/sports/"
                 async function createObj() {
                     const response = axios.post(url, new_obj)
                     console.log(response)

@@ -60,8 +60,9 @@ class ModalUsers extends Component {
             let new_obj = {
                 name: this.state.name,
                 lastName: this.state.lastName,
-                // username: this.state.username,
+                username: this.state.username,
                 lapel: this.state.lapel,
+                password: this.state.password,
                 sex: this.state.sex,
                 ci: this.state.ci,
                 type: this.state.type,
@@ -72,7 +73,7 @@ class ModalUsers extends Component {
 
                 // TODO axios patch http://127.0.0.1:8080/users/id obj.userId
                 if (this.props.api_connection) {
-                    let url = "http://127.0.0.1:8080/users/id".concat(this.props.obj.userId)
+                    let url = "http://127.0.0.1:8088/users/id".concat(this.props.obj.userId)
                     async function updateObj() {
                         const response = axios.put(url, new_obj)
                         console.log(response)
@@ -87,7 +88,7 @@ class ModalUsers extends Component {
 
                 // TODO axios post http://127.0.0.1:8080/users
                 if (this.props.api_connection) {
-                    let url = "http://127.0.0.1:8080/users"
+                    let url = "http://127.0.0.1:8088/users"
                     async function createObj() {
                         const response = axios.post(url, new_obj)
                         console.log(response)
@@ -202,7 +203,6 @@ class ModalUsers extends Component {
             let wasInit = true
 
             state['userId'] = this.props.obj.userId
-
             state['name'] = this.props.obj.name
             state['lastName'] = this.props.obj.lastName
             state['username'] = this.props.obj.username
@@ -210,7 +210,8 @@ class ModalUsers extends Component {
             state['sex'] = this.props.obj.sex
             state['ci'] = this.props.obj.ci
             state['type'] = this.props.obj.type
-
+            state['password'] = this.props.password
+            state['passwordConfirm'] = this.props.password
             state['wasInit'] = wasInit
             this.setState(state)
         }

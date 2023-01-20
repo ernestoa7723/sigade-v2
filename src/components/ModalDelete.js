@@ -32,32 +32,32 @@ class ModalDelete extends Component {
 
             // TODO del http://127.0.0.1:8080/medals/id obj.id
             if (this.props.model === 'MedalsTable') {
-                url = "http://127.0.0.1:8080/medals/id".concat(this.props.obj.id)
+                url = "http://127.0.0.1:8088/medals/id".concat(this.props.obj.id)
             }
 
             // TODO del http://127.0.0.1:8080/users/id obj.userId ?id= obj.userId
             if (this.props.model === 'User') {
-                url = "http://127.0.0.1:8080/users/id".concat(this.props.obj.userId).concat('?id=').concat(this.props.obj.userId)
+                url = "http://127.0.0.1:8088/users/id".concat(this.props.obj.userId).concat('?id=').concat(this.props.obj.userId)
             }
 
             // TODO del http://127.0.0.1:8080/sports/id obj.sportId ?id= obj.sportId
             if (this.props.model === 'Sport') {
-                url = "http://127.0.0.1:8080/sports/id".concat(this.props.obj.sportId).concat('?id=').concat(this.props.obj.sportId)
+                url = "http://127.0.0.1:8088/sports/id".concat(this.props.obj.sportId).concat('?id=').concat(this.props.obj.sportId)
             }
 
             // TODO del http://127.0.0.1:8080/events/id obj.eventId ?id= obj.eventId
             if (this.props.model === 'Event') {
-                url = "http://127.0.0.1:8080/events/id".concat(this.props.obj.eventId).concat('?id=').concat(this.props.obj.eventId)
+                url = "http://127.0.0.1:8088/events/id".concat(this.props.obj.eventId).concat('?id=').concat(this.props.obj.eventId)
             }
 
             // TODO del http://127.0.0.1:8080/calendars/id obj.idCalendar ?id= obj.idCalendar
             if (this.props.model === 'Calendar') {
-                url = "http://127.0.0.1:8080/calendars/id".concat(this.props.obj.idCalendar).concat('?id=').concat(this.props.obj.idCalendar)
+                url = "http://127.0.0.1:8088/calendars/id".concat(this.props.obj.idCalendar).concat('?id=').concat(this.props.obj.idCalendar)
             }
 
             // TODO del http://127.0.0.1:8080/reports/id obj.idReport ?id= obj.idReport
             if (this.props.model === 'Report') {
-                url = "http://127.0.0.1:8080/reports/id".concat(this.props.obj.idReport).concat('?id=').concat(this.props.obj.idReport)
+                url = "http://127.0.0.1:8088/reports/id".concat(this.props.obj.idReport).concat('?id=').concat(this.props.obj.idReport)
             }
             async function deleteObj() {
                 const response = axios.delete(url)

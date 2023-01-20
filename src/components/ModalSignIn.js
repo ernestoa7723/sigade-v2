@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+import axios from "axios";
 import '../assets/bootstrap-5.2.3-dist/css/bootstrap.css'
 import '../assets/bootstrap-5.2.3-dist/js/bootstrap.bundle'
 
@@ -22,16 +22,27 @@ class ModalSignIn extends Component {
         this.setState(state);
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
+        event.preventDefault()
+        let user_logged = null
         if (this.props.api_connection) {
-
-            console.log(this.state)
-
+            try{
+                let response = await axios.get('http://localhost:8088/users/list')
+                let data = await response.data
+                data.map((user, i) => {
+                    if(user.username === this.state.username){
+                        user_logged = {
+                            username: user.username,
+                            password: user.password,
+                            type: user.type
+                        }
+                    }
+                })
+                // console.log(user_logged)
+            }catch(e){
+                console.log(e)
+            }
         } else {
-            event.preventDefault()
-
-            let user_logged = null
-
             this.props.User.forEach(
                 user => {
                     if (this.state.username === user.username) {
@@ -40,16 +51,19 @@ class ModalSignIn extends Component {
                 }
             )
 
-            if (user_logged !== null) {
-                if (this.state.password === user_logged.password) {
-                    sessionStorage.setItem('user', JSON.stringify(user_logged.username))
-                    window.location.reload()
-                } else {
-                    this.setState({error: 'El nombre de usuario y/o contraseña es incorrecto.'})
-                }
+        }
+
+        if (user_logged !== null && user_logged.type === "Vicedecano") {
+            if (this.state.password === user_logged.password) {
+                sessionStorage.setItem('user', JSON.stringify(user_logged.username))
+                window.location.reload()
             } else {
                 this.setState({error: 'El nombre de usuario y/o contraseña es incorrecto.'})
             }
+        } else if(user_logged !== null && user_logged.type !== "Vicedecano"){
+            this.setState({error: 'Usted no tiene permiso para autenticarse.'})
+        } else {
+            this.setState({error: 'El nombre de usuario y/o contraseña es incorrecto.'})
         }
     }
 

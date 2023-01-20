@@ -36,7 +36,7 @@ class ModalCalendar extends Component {
 
             // TODO axios patch http://127.0.0.1:8080/calendars/id obj.idCalendar
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/calendars/id".concat(this.props.obj.idCalendar)
+                let url = "http://127.0.0.1:8088/calendars/id".concat(this.props.obj.idCalendar)
                 async function updateObj() {
                     const response = axios.put(url, new_obj)
                     console.log(response)
@@ -51,7 +51,7 @@ class ModalCalendar extends Component {
         } else {
             // TODO axios post http://127.0.0.1:8080/calendars/
             if (this.props.api_connection) {
-                let url = "http://127.0.0.1:8080/calendars/"
+                let url = "http://127.0.0.1:8088/calendars/"
                 async function createObj() {
                     const response = axios.post(url, new_obj)
                     console.log(response)
@@ -101,9 +101,8 @@ class ModalCalendar extends Component {
             let wasInit = true
 
             state['idCalendar'] = this.props.obj.idCalendar
-            state['site'] = this.props.obj.site
             state['date'] = this.props.obj.date
-
+            state['site'] = this.props.obj.site
             state['wasInit'] = wasInit
             this.setState(state)
         }
