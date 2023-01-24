@@ -6,6 +6,8 @@ import '../../assets/bootstrap-5.2.3-dist/js/bootstrap.bundle'
 import ModalUsers from "./ModalUsers";
 import ModalDelete from "../ModalDelete";
 
+import FilterUsersModal from "./FilterUsersModal";
+
 
 class ListUsers extends Component {
     adminSectionTh = () => {
@@ -67,6 +69,8 @@ class ListUsers extends Component {
                         <div className="col-auto ms-auto my-auto">
                             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create-user-modal">Añadir</button>
                             <ModalUsers id={'create-user-modal'} obj={null} api_connection={this.props.api_connection} />
+                            <button type="button" className="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#filter-user-modal">Buscar</button>
+                            <FilterUsersModal id={'filter-user-modal'}/>
                         </div>
                     </div>
                     <div className="table-responsive">

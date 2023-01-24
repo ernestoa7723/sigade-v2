@@ -19,6 +19,10 @@ import ListEvents from "./events/ListEvents";
 import ListCalendars from "./calendars/ListCalendars";
 import ListReports from "./reports/ListReports";
 
+import FilterUsers from "./users/FilterUsers";
+import FilterSports from "./sports/FilterSports";
+import FilterEvents from "./events/FilterEvents";
+
 
 function App() {
     const api_connection = true
@@ -139,8 +143,11 @@ function App() {
                     <Route exact path={'/'} element={<Main user={user}/>}></Route>
                     <Route exact path={'/medallas'} element={<ListMedalsTable api_connection={api_connection} user={user} MedalsTable={medalsTableState}/>}></Route>
                     <Route exact path={'/usuarios'} element={<ListUsers api_connection={api_connection} user={user} User={userState}/>}></Route>
+                    <Route exact path={'/usuarios/buscar'} element={<FilterUsers api_connection={api_connection} user={user}/>}></Route>
                     <Route exact path={'/deportes'} element={<ListSports api_connection={api_connection} user={user} Sport={sportState}/>}></Route>
+                    <Route exact path={'/deportes/buscar'} element={<FilterSports api_connection={api_connection} user={user}/>}></Route>
                     <Route exact path={'/eventos'} element={<ListEvents api_connection={api_connection} user={user} Event={eventState}/>}></Route>
+                    <Route exact path={'/eventos/buscar'} element={<FilterEvents api_connection={api_connection} user={user}/>}></Route>
                     <Route exact path={'/calendarios'} element={<ListCalendars api_connection={api_connection} user={user} Calendar={calendarState}/>}></Route>
                     <Route exact path={'/reportes'} element={<ListReports api_connection={api_connection} user={user} Report={reportState}/>}></Route>
                 </Routes>

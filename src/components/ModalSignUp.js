@@ -25,46 +25,29 @@ class ModalSignUp extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault()
-        let user_logged = null
+
+        let new_obj = this.state
+
         // TODO axios post http://127.0.0.1:8080/users/
         if (this.props.api_connection) {
             let url = "http://127.0.0.1:8088/users/"
             async function createObj() {
-                const response = axios.post(url, this.state)
-                user_logged = response
+                const response = await axios.post(url, new_obj)
+
                 console.log(response)
             }
 
             createObj()
-           
-            if (user_logged !== null) {
-                sessionStorage.setItem('user', JSON.stringify(user_logged.username))
-                window.location.reload()
-            } else {
-                this.setState({error: 'Error.'})
-            }
+
+            let modal = document.getElementById('sign-up-modal')
+            let modal_backdrop = document.getElementsByClassName('modal-backdrop fade show')
+
+            modal.setAttribute('style', 'display: none;')
+            modal_backdrop[0].remove()
+
         } else {
             console.log(this.state)
         }
-
-        try{
-            let response = await axios.get('http://localhost:8088/users/list')
-            let data = await response.data
-            data.map((user, i) => {
-                if(user.username === this.state.username){
-                    user_logged = {
-                        username: user.username,
-                        password: user.password,
-                        type: user.type
-                    }
-                }
-            })
-        }catch(e){
-            console.log(e)
-        }
-
-        console.log(this.state)
-
     }
 
     error = () => {
@@ -94,42 +77,42 @@ class ModalSignUp extends Component {
                                         <input type="text" className="form-control" id="floatingUsernameR" placeholder="Nombre de usuario" required onChange={(event) => {this.handleChanges(event.target.value, 'username')}}/>
                                         <label htmlFor="floatingUsernameR">Nombre de usuario</label>
                                     </div>
-                                    <div className="form-floating">
-                                        <input type="text" className="form-control mt-3" id="floatingName" placeholder="Nombre" required onChange={(event) => {this.handleChanges(event.target.value, 'name')}}/>
+                                    <div className="form-floating mt-3">
+                                        <input type="text" className="form-control" id="floatingName" placeholder="Nombre" required onChange={(event) => {this.handleChanges(event.target.value, 'name')}}/>
                                         <label htmlFor="floatingName">Nombre</label>
                                     </div>
-                                    <div className="form-floating">
-                                        <input type="text" className="form-control mt-3" id="floatingLastName" placeholder="Apellidos" required onChange={(event) => {this.handleChanges(event.target.value, 'lastname')}}/>
+                                    <div className="form-floating mt-3">
+                                        <input type="text" className="form-control" id="floatingLastName" placeholder="Apellidos" required onChange={(event) => {this.handleChanges(event.target.value, 'lastName')}}/>
                                         <label htmlFor="floatingLastName">Apellidos</label>
                                     </div>
-                                    <div className="form-floating">
-                                        <input type="text" className="form-control mt-3" id="floatingGroup" placeholder="Brigada" required onChange={(event) => {this.handleChanges(event.target.value, 'group')}}/>
+                                    <div className="form-floating mt-3">
+                                        <input type="text" className="form-control" id="floatingGroup" placeholder="Brigada" required onChange={(event) => {this.handleChanges(event.target.value, 'group')}}/>
                                         <label htmlFor="floatingGroup">Brigada</label>
                                     </div>
-                                    <div className="form-floating">
-                                        <input type="password" className="form-control mt-3" id="floatingPasswordR" placeholder="Contraseña" required onChange={(event) => {this.handleChanges(event.target.value, 'password')}}/>
+                                    <div className="form-floating mt-3">
+                                        <input type="password" className="form-control" id="floatingPasswordR" placeholder="Contraseña" required onChange={(event) => {this.handleChanges(event.target.value, 'password')}}/>
                                         <label htmlFor="floatingPasswordR">Contraseña</label>
                                     </div>
                                 </div>
                                 <div className="d-flex flex-column">
-                                    <div className="form-floating">
-                                        <select className="form-control mt-3" name="sex" id="floatingSex" required onChange={(event) => {this.handleChanges(event.target.value, 'sex')}}>
+                                    <div className="form-floating mt-3">
+                                        <select className="form-control" name="sex" id="floatingSex" required onChange={(event) => {this.handleChanges(event.target.value, 'sex')}}>
                                             <option value="Masculino">Masculino</option>
                                             <option value="Femenino">Femenino</option>
                                         </select>
                                         {/* <input type="text" className="form-control" id="floatingSex" placeholder="Sexo" required onChange={(event) => {this.handleChanges(event.target.value, 'sex')}}/> */}
                                         <label htmlFor="floatingSex">Sexo</label>
                                     </div>
-                                    <div className="form-floating">
-                                        <input type="text" className="form-control mt-3" id="floatingLapel" placeholder="Solapin" required onChange={(event) => {this.handleChanges(event.target.value, 'lapel')}}/>
+                                    <div className="form-floating mt-3">
+                                        <input type="text" className="form-control" id="floatingLapel" placeholder="Solapin" required onChange={(event) => {this.handleChanges(event.target.value, 'lapel')}}/>
                                         <label htmlFor="floatingLapel">Solapin</label>
                                     </div>
-                                    <div className="form-floating">
-                                        <input type="text" className="form-control mt-3" id="floatingCI" placeholder="CI" required onChange={(event) => {this.handleChanges(event.target.value, 'CI')}}/>
+                                    <div className="form-floating mt-3">
+                                        <input type="text" className="form-control" id="floatingCI" placeholder="CI" required onChange={(event) => {this.handleChanges(event.target.value, 'ci')}}/>
                                         <label htmlFor="floatingCI">CI</label>
                                     </div>
-                                    <div className="form-floating">
-                                        <select className="form-control mt-3" name="type" id="floatingType" required onChange={(event) => {this.handleChanges(event.target.value, 'type')}}>
+                                    <div className="form-floating mt-3">
+                                        <select className="form-control" name="type" id="floatingType" required onChange={(event) => {this.handleChanges(event.target.value, 'type')}}>
                                             <option value="Estudiante">Estudiante</option>
                                             <option value="Profesor">Profesor</option>
                                             <option value="Vicedecano">Vicedecano</option>

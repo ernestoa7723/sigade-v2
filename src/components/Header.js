@@ -8,13 +8,13 @@ class Header extends Component {
     buttonLog = () => {
         if (!this.props.user) {
             return (
-                <button type="button" className="btn btn-outline-light col-md-9 col-lg-auto me-2 me-md-0 me-lg-2" data-bs-toggle="modal" data-bs-target="#sign-in-modal">
+                <button type="button" className="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#sign-in-modal">
                     Iniciar sesión
                 </button>
             )
         } else {
             return (
-                <button type="button" className="btn btn-danger col-md-9 col-lg-auto me-2 me-md-0 me-lg-2" onClick={event => this.handleLogout()}>
+                <button type="button" className="btn btn-danger" onClick={event => this.handleLogout()}>
                     Cerrar sesión
                 </button>
             )
@@ -29,7 +29,7 @@ class Header extends Component {
     render() {
         return (
             <header>
-                <nav className="navbar navbar-expand-md navbar-dark sticky-top bg-dark" aria-label="navbar">
+                <nav className="navbar navbar-expand-lg navbar-dark sticky-top bg-dark" aria-label="navbar">
                     <div className="container">
                         <a href="/" className="d-flex align-items-center my-auto text-white text-decoration-none">
                             <img src="http://127.0.0.1:3000/assets/fontawesome-free-6.2.1-web/svgs/brands/bootstrap-white.svg" width="30" height="30" alt=""></img>
@@ -59,13 +59,15 @@ class Header extends Component {
                                     <a className="nav-link active" aria-current="page" href="/usuarios">Usuarios</a>
                                 </li>
                             </ul>
-                            <div className="text-center">
-                                { this.buttonLog() }
-                            </div>
-                            <div>
-                                <button type="button" className="btn btn-outline-light col-md-9 col-lg-auto me-2 me-md-0 me-lg-2" data-bs-toggle="modal" data-bs-target="#sign-up-modal">
-                                    Registrarse
-                                </button>
+                            <div className="row">
+                                <div className="text-end col col-lg-auto">
+                                    <button type="button" className="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#sign-up-modal">
+                                        Registrarse
+                                    </button>
+                                </div>
+                                <div className="text-start col col-lg-auto">
+                                    { this.buttonLog() }
+                                </div>
                             </div>
                         </div>
                     </div>

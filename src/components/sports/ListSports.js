@@ -6,6 +6,8 @@ import '../../assets/bootstrap-5.2.3-dist/js/bootstrap.bundle'
 import ModalSport from "./ModalSport";
 import ModalDelete from "../ModalDelete";
 
+import FilterSportsModal from "./FilterSportsModal";
+
 
 class ListSports extends Component {
     createSportModal = () => {
@@ -14,6 +16,9 @@ class ListSports extends Component {
                 <div className="col-auto px-1 ms-auto my-auto">
                     <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#create-sport-modal">Añadir</button>
                     <ModalSport id={'create-sport-modal'} obj={null} api_connection={this.props.api_connection} />
+
+                    <button className="btn btn-primary ms-3" type="button" data-bs-toggle="modal" data-bs-target="#filter-sport-modal">Buscar</button>
+                    <FilterSportsModal id={'filter-sport-modal'}/>
                 </div>
             )
         }

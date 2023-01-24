@@ -1,4 +1,6 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
+
+import axios from "axios";
 
 import '../../assets/bootstrap-5.2.3-dist/css/bootstrap.css'
 import '../../assets/bootstrap-5.2.3-dist/js/bootstrap.bundle'
@@ -8,13 +10,38 @@ import ModalDelete from "../ModalDelete";
 
 import FilterEventsModal from "./FilterEventsModal";
 
-class ListEvents extends Component{
-    createEventModal = () => {
-        if (this.props.user) {
+
+function FilterEvents(props) {
+    const api_connection = props.api_connection
+
+    const query_params = window.location.search
+
+    const [eventState, setEventState] = useState();
+
+    useEffect(() => {
+        const getDataEvent = async () => {
+            let response
+
+            // TODO get http://127.0.0.1:8080/events/filter
+            if (api_connection) {
+                response = await axios.get('http://127.0.0.1:8088/events/filter' + query_params)
+            } else {
+                response = await axios.get('http://127.0.0.1:3000/data.json')
+            }
+            const response_data = await response.data
+
+            api_connection ? setEventState(response_data) : setEventState(response_data.event)
+        }
+
+        getDataEvent()
+    }, []);
+
+    const createEventModal = () => {
+        if (props.user) {
             return (
                 <div className="col-auto px-1 ms-auto my-auto">
                     <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#create-event-modal">Añadir</button>
-                    <ModalEvent data={this.props.Sport} id={'create-event-modal'} obj={null} api_connection={this.props.api_connection} />
+                    <ModalEvent data={props.Sport} id={'create-event-modal'} obj={null} api_connection={props.api_connection} />
 
                     <button className="btn btn-primary ms-3" type="button" data-bs-toggle="modal" data-bs-target="#filter-event-modal">Buscar</button>
                     <FilterEventsModal id={'filter-event-modal'}/>
@@ -23,16 +50,16 @@ class ListEvents extends Component{
         }
     }
 
-    adminTh = () => {
-        if (this.props.user) {
+    const adminTh = () => {
+        if (props.user) {
             return (
                 <th scope="col">Acciones</th>
             )
         }
     }
 
-    adminTd = (index, event) => {
-        if (this.props.user) {
+    const adminTd = (index, event) => {
+        if (props.user) {
             return (
                 <td>
                     <div className="row row-cols-1 row-cols-md-2 g-1 justify-content-evenly mx-0">
@@ -43,7 +70,7 @@ class ListEvents extends Component{
                                     <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                 </svg>
                             </button>
-                            <ModalEvent id={'update-event-modal-'.concat(index)} obj={event} api_connection={this.props.api_connection} />
+                            <ModalEvent id={'update-event-modal-'.concat(index)} obj={event} api_connection={props.api_connection} />
                         </div>
                         <div className="col text-center">
                             <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target={'#delete-event-modal-'.concat(index)}>
@@ -51,7 +78,7 @@ class ListEvents extends Component{
                                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
                                 </svg>
                             </button>
-                            <ModalDelete id={'delete-event-modal-'.concat(index)} model={'Event'} obj={event} api_connection={this.props.api_connection} />
+                            <ModalDelete id={'delete-event-modal-'.concat(index)} model={'Event'} obj={event} api_connection={props.api_connection} />
                         </div>
                     </div>
                 </td>
@@ -59,7 +86,7 @@ class ListEvents extends Component{
         }
     }
 
-    getDate = (date) => {
+    const getDate = (date) => {
         const days = {
             Mon: 'Lun', Tue: 'Mar', Wed: 'Mie', Thu: 'Jue', Fri: 'Vie', Sat: 'Sab', Sun: 'Dom'
         }
@@ -84,50 +111,48 @@ class ListEvents extends Component{
         return <span>{day} de {month} del {year}</span>
     }
 
-    render() {
-        return (
-            <main className="flex-shrink-0">
-                <div className="container p-3">
-                    <div className="row row-cols-1 row-cols-md-auto">
-                        <div className="col col-4 col-md-auto">
-                            <h1>Eventos</h1>
-                        </div>
-                        { this.createEventModal() }
+    return eventState && (
+        <main className="flex-shrink-0">
+            <div className="container p-3">
+                <div className="row row-cols-1 row-cols-md-auto">
+                    <div className="col col-4 col-md-auto">
+                        <h1>Eventos</h1>
                     </div>
-                    <div className="table-responsive">
-                        <table className="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Deporte</th>
-                                    <th scope="col">Modalidad</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Fecha</th>
-                                    { this.adminTh() }
-                                </tr>
-                            </thead>
-                            <tbody className="table-group-divider">
-                            {
-                                this.props.Event.map(
-                                    (event, index) => {
-                                        return (
-                                            <tr key={index}>
-                                                <td>{event.sport}</td>
-                                                <td>{event.modality}</td>
-                                                <td>{event.evenName}</td>
-                                                <td>{this.getDate(event.date)}</td>
-                                                { this.adminTd(index, event) }
-                                            </tr>
-                                        )
-                                    }
-                                )
-                            }
-                            </tbody>
-                        </table>
-                    </div>
+                    { createEventModal() }
                 </div>
-            </main>
-        )
-    }
+                <div className="table-responsive">
+                    <table className="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Deporte</th>
+                            <th scope="col">Modalidad</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Fecha</th>
+                            { adminTh() }
+                        </tr>
+                        </thead>
+                        <tbody className="table-group-divider">
+                        {
+                            eventState.event.map(
+                                (event, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{event.sport}</td>
+                                            <td>{event.modality}</td>
+                                            <td>{event.evenName}</td>
+                                            <td>{getDate(event.date)}</td>
+                                            { adminTd(index, event) }
+                                        </tr>
+                                    )
+                                }
+                            )
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    )
 }
 
-export default ListEvents
+export default FilterEvents

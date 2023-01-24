@@ -103,8 +103,6 @@ class ModalMellaGame extends Component {
     }
 
     render() {
-        
-
         return (
             <div className="modal fade" id={this.props.id} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby={this.props.id.concat('-label')} aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
